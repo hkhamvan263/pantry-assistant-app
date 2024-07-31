@@ -75,6 +75,7 @@ export default function Home() {
       flexDirection="column"
       alignItems="center"
       gap={2}
+      bgcolor="#FDFD96"
     >
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -138,7 +139,13 @@ export default function Home() {
             Pantry Items
           </Typography>
         </Box>
-        <Stack width="800px" height="300px" spacing={2} overflow="auto">
+        <Stack
+          width="800px"
+          height="300px"
+          spacing={2}
+          overflow="auto"
+          bgcolor='#f0f0f0'
+        >
           {inventory.map(({name, quantity}) => (
             <Box
               key={name}
@@ -147,7 +154,7 @@ export default function Home() {
               display='flex'
               alignItems="center"
               justifyContent="space-between"
-              bgcolor='f0f0f0'
+              bgcolor='#f0f0f0'
               padding={5}
             >
               <Typography variant='h3' color='#333' textAlign='center'>

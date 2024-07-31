@@ -1,10 +1,8 @@
 'use client'
-import {Box, Modal, Stack, TextField, Typography} from '@mui/material'
+import {Box, Modal, Stack, TextField, Typography, Button} from '@mui/material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
 import {collection, deleteDoc, getDoc, query, setDoc} from 'firebase/firestore'
-//import Image from "next/image";
-//import styles from "./page.module.css";
 
 export default function Home() {
   const [inventory, setInventory] = useState([])

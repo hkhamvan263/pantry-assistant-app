@@ -117,15 +117,17 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Typography variant='h1' color='#333' textAlign='center'>Pantry Assistant</Typography>
-      <Stack direction="row" spacing={2}>
-        <TextField
-          id="filled-search"
-          label="Search Bar"
-          type="search"
-          variant="filled"
-        />
-        <Button variant="contained">Enter</Button>
+      <Stack direction="row" spacing={5}>
+        <Typography variant='h3' color='#333' textAlign='left'>Pantry Assistant</Typography>
+        <Stack direction="row" spacing={2}>
+          <TextField
+            id="filled-search"
+            label="Search Bar"
+            type="search"
+            variant="filled"
+          />
+          <Button variant="contained">Enter</Button>
+        </Stack>
       </Stack>
       <Typography color='#333'>
         Hello, this is the Pantry Assistant. Click the button below to add a new item.

@@ -76,6 +76,7 @@ export default function Home() {
       alignItems="center"
       gap={2}
       bgcolor="#FDFD96"
+      overflow="auto"
     >
       <Modal open={open} onClose={handleClose}>
         <Box
@@ -117,8 +118,11 @@ export default function Home() {
         </Box>
       </Modal>
       <Typography variant='h1' color='#333' textAlign='center'>Pantry Assistant</Typography>
-      <Typography color='#333'>Hello and this is the Pantry Assistant.</Typography>
-      <TextField id="outlined-search" label="Search field" type="search" />
+      <TextField id="filled-search" label="Search Bar" type="search" />
+      <Button>Enter</Button>
+      <Typography color='#333'>
+        Hello, this is the Pantry Assistant. Click the button below to add a new item.
+      </Typography>
       <Button
         variant="contained"
         onClick={() => {

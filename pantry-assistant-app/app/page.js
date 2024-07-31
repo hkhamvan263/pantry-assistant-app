@@ -2,7 +2,7 @@
 import {Box, Modal, Stack, TextField, Typography, Button} from '@mui/material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
-import {collection, deleteDoc, getDoc, query, setDoc} from 'firebase/firestore'
+import {collection, doc, deleteDoc, getDocs, query, setDoc, getDoc} from 'firebase/firestore'
 
 export default function Home() {
   const [inventory, setInventory] = useState([])
@@ -16,7 +16,7 @@ export default function Home() {
     docs.forEach((doc) => {
       inventoryList.push({
         name: doc.id,
-        ...doc.data(),
+        ...doc.data()
       })
     })
     setInventory(inventoryList)
@@ -66,7 +66,7 @@ export default function Home() {
       height="100vh"
       display="flex"
       justifyContent="center"
-      flexDirection={'column'}
+      flexDirection="column"
       alignItems="center"
       gap={2}
     >
@@ -74,7 +74,6 @@ export default function Home() {
         <Box
           position="absolute"
           top="50%" left="50%"
-          transform="translate(-50%,-50%"
           width={400}
           bgcolor="white"
           border="2px solid #000"
@@ -104,11 +103,50 @@ export default function Home() {
                 setItemName('')
                 handleClose()
               }}
-            ></Button>
+            >
+              Add
+            </Button>
           </Stack>
         </Box>
       </Modal>
-      <Typography variant="h1">Pantry Assistant</Typography>
+      <Button
+        variant="contained"
+        onClick={() => {
+          handleOpen()
+        }}
+      >
+        Add New Item
+      </Button>
+      <Box border='1px solid #333'>
+        <Box
+          width="800px"
+          height="100px"
+          bgcolor="#B19CD9"
+          alignItems="center"
+          justifyContent="center"
+          display="flex"
+        >
+          <Typography variant="h2" color="#333">
+            Pantry Items
+          </Typography>
+        </Box>
+      </Box>
+      <Stack width="800px" height="300px" spacing={2} overflow="auto">
+        {inventory.map(({name, quantity}) => (
+          <Box
+            key={name}
+            width="100%"
+            minHeight="150px"
+            display='flex'
+            alignItems="center"
+            justifyContent="center"
+            bgcolor='f0f0f0'
+            padding={5}
+          >
+            <Typography>Name</Typography>
+          </Box>
+        ))}
+      </Stack>
     </Box>
   )
 }

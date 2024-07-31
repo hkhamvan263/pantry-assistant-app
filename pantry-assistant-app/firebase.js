@@ -4,6 +4,7 @@ import {getFirestore} from 'firebase/firestore'
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
+  apiKey: "AIzaSyDRYDk1HgetR7bY1_gUcJ8ZMLtLcXAn0uQ",
   authDomain: "pantry-assistant-app.firebaseapp.com",
   projectId: "pantry-assistant-app",
   storageBucket: "pantry-assistant-app.appspot.com",
@@ -18,6 +19,3 @@ export {firestore}
 
 require("dotenv").config
 console.log(process.env.apiKey)
-console.log(process.env.projectId)
-console.log(process.env.messagingSenderId)
-console.log(process.env.appId)

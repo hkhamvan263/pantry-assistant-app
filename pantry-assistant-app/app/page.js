@@ -144,7 +144,7 @@ export default function Home() {
           height="300px"
           spacing={2}
           overflow="auto"
-          bgcolor='#f0f0f0'
+          bgcolor='#b0b0b0'
         >
           {inventory.map(({name, quantity}) => (
             <Box

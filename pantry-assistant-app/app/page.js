@@ -1,6 +1,6 @@
 'use client'
 import {Box, Modal, Stack, TextField, Typography, Button, InputAdornment} from '@mui/material'
-import {SearchIcon} from '@mui/icons-material'
+//import {SearchIcon} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
 import {
@@ -122,16 +122,9 @@ export default function Home() {
         <Typography variant='h3' color='#333' textAlign='left'>Pantry Assistant</Typography>
         <Stack direction="row" spacing={2}>
           <TextField
-            id="input-with-icon-textfield"
+            id="filled-search"
             label="Search Bar"
             type="search"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
             variant="filled"
           />
           <Button variant="contained">Enter</Button>

@@ -150,7 +150,7 @@ export default function Home() {
             <Box
               key={name}
               width="100%"
-              minHeight="125px"
+              minHeight="100px"
               display='flex'
               alignItems="center"
               justifyContent="space-between"

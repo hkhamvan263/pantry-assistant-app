@@ -150,17 +150,17 @@ export default function Home() {
             <Box
               key={name}
               width="100%"
-              minHeight="150px"
+              minHeight="125px"
               display='flex'
               alignItems="center"
               justifyContent="space-between"
               bgcolor='#f0f0f0'
               padding={5}
             >
-              <Typography variant='h3' color='#333' textAlign='center'>
+              <Typography variant='h4' color='#333' textAlign='center'>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant='h3' color='#333' textAlign='center'>
+              <Typography variant='h4' color='#333' textAlign='center'>
                 {quantity}
               </Typography>
               <Stack direction="row" spacing={2}>

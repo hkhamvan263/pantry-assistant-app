@@ -118,6 +118,7 @@ export default function Home() {
       </Modal>
       <Typography variant='h1' color='#333' textAlign='center'>Pantry Assistant</Typography>
       <Typography color='#333'>Hello and this is the Pantry Assistant.</Typography>
+      <TextField id="outlined-search" label="Search field" type="search" />
       <Button
         variant="contained"
         onClick={() => {
@@ -150,7 +151,7 @@ export default function Home() {
             <Box
               key={name}
               width="100%"
-              minHeight="100px"
+              minHeight="115px"
               display='flex'
               alignItems="center"
               justifyContent="space-between"

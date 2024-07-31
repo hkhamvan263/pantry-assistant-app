@@ -117,7 +117,7 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Stack direction="row" spacing={5}>
+      <Stack direction="row" spacing={10}>
         <Typography variant='h3' color='#333' textAlign='left'>Pantry Assistant</Typography>
         <Stack direction="row" spacing={2}>
           <TextField

@@ -28,6 +28,7 @@ export default function Home() {
   const [inventory, setInventory] = useState([])
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
+  const [error, setError] = useState('')
   
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -147,19 +148,30 @@ export default function Home() {
             transform: 'translate(-50%, -50%)'
           }}
         >
-          <Typography variant="h6"> Add item</Typography>
+          <Typography variant="h6"> Add item </Typography>
           <Stack width="100%" direction="row" spacing={2}>
             <TextField
               variant='filled'
               fullWidth
               value={itemName}
+              sx={{boxShadow: 3}}
               onChange={(e) => {
                 setItemName(e.target.value)
+                if (e.target.value) {
+                  setError('')
+                }
               }}
+              error={!!error}
+              helperText={error}
             />
             <Button
               variant="outlined"
+              sx={{boxShadow: 5}}
               onClick={() => {
+                if (!itemName.trim()) {
+                  setError('Item name cannot be blank')
+                  return
+                }
                 addItem(itemName)
                 setItemName('')
                 handleClose()

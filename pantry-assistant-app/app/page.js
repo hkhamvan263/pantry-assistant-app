@@ -3,7 +3,14 @@ import {
   Box,
   Modal,
   Stack,
-  TextField, Typography, InputBase, Toolbar, Button, AppBar, styled, alpha} from '@mui/material'
+  TextField,
+  Typography,
+  InputBase,
+  Toolbar,
+  Button,
+  AppBar,
+  styled,
+  alpha} from '@mui/material'
 import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'

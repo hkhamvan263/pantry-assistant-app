@@ -10,7 +10,10 @@ import {
   Button,
   AppBar,
   styled,
-  alpha} from '@mui/material'
+  alpha,
+  IconButton,
+  Autocomplete
+} from '@mui/material'
 import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
@@ -203,7 +206,7 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <AppBar sx={{bgcolor: "#FAC898"}}>
+      <AppBar position="absolute" sx={{bgcolor: "#FAC898"}}>
         <Toolbar>
           <Kitchen />
           <Typography
@@ -214,21 +217,22 @@ export default function Home() {
           >
             Pantry Assistant
           </Typography>
-          <SearchField>
-            <SearchIconWrapper>
-              <Search />
-            </SearchIconWrapper>
-            <StyledInputBase
+          <Box display="flex" alignItems="center" ml={2}>
+            <InputBase
               placeholder="Search Bar"
               value={searchQuery}
-              onChange={handleSearchChange}
+              inputProps={{ 'aria-label': 'search' }}
+              onChange={(e) => setSearchQuery(e.target.value)}
               sx={{ ml: 1, flex: 1 }}
             />
-          </SearchField>
+            <IconButton type="submit" aria-label="search">
+              <Search style={{ color: 'white' }} />
+            </IconButton>
+          </Box>
         </Toolbar>
       </AppBar>
       <Typography color='#333'>
-        Hello, this is the Pantry Assistant. I'm here to add food, beverages, spices,
+        Hello, this is the Pantry Assistant. I'm here to add food, beverages, spices/flavorings,
          sauces, and condiments to the pantry.
       </Typography>
       <Button

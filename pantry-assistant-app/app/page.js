@@ -1,5 +1,9 @@
 'use client'
-import {Box, Modal, Stack, TextField, Typography, InputBase, Toolbar, Button, AppBar, styled, alpha} from '@mui/material'
+import {
+  Box,
+  Modal,
+  Stack,
+  TextField, Typography, InputBase, Toolbar, Button, AppBar, styled, alpha} from '@mui/material'
 import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
@@ -17,7 +21,6 @@ export default function Home() {
   const [inventory, setInventory] = useState([])
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
-  const[searchQuery, setSearchQuery] = useState('')
   
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -61,13 +64,6 @@ export default function Home() {
     }
 
     await updateInventory()
-  }
-
-  const filterSearch = async () => {
-    const filteredSearch = inventory.filter(item => 
-      item.name.toLowerCase().includes(searchQuery)
-    )
-    setSearchQuery(filteredSearch)
   }
 
   useEffect(() => {

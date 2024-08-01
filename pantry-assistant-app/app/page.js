@@ -5,14 +5,10 @@ import {
   Stack,
   TextField,
   Typography,
-  InputBase,
+  InputAdornment,
   Toolbar,
   Button,
   AppBar,
-  styled,
-  alpha,
-  IconButton,
-  Autocomplete
 } from '@mui/material'
 import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
@@ -33,7 +29,7 @@ export default function Home() {
   const [itemName, setItemName] = useState('')
   const [error, setError] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
-  const [items, setItems] = useState([])
+  const [filterInventory, setFilterInventory] = useState([]);
   
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -85,65 +81,16 @@ export default function Home() {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const SearchField = styled('div')(({theme}) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.15),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.common.black, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto',
-    }
-  }))
-  
-  const SearchIconWrapper = styled('div')(({theme}) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }))
-  
-  const StyledInputBase = styled(InputBase)(({theme}) => ({
-    color: 'inherit',
-    width: '100%',
-    '& .MuiInputBase-input': {
-      padding: theme.spacing(1, 1, 1, 0),
-      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('sm')]: {
-        width: '12ch',
-        '&:focus': {
-          width: '20ch',
-        },
-      },
-    }
-  }))
-
   useEffect(() => {
-    const fetchItems = async () => {
-      const itemsCollection = query(collection(firestore, 'items'))
-      const itemsSnapshot = await getDocs(itemsCollection)
-      const itemsList = itemsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      setItems(itemsList)
+    const searching = searchQuery.toLowerCase()
+    if (searchQuery !== '') {
+      const filter = inventory.filter((item) =>
+        item.name.toLowerCase().startsWith(searching)
+      )
+      setFilterInventory(filter)
     }
-
-    fetchItems()
-  }, [])
-
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value)
-  }
-
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+    else setFilterInventory(inventory)
+  }, [searchQuery, inventory])
 
   return (
     <Box width ="100vw"
@@ -178,7 +125,7 @@ export default function Home() {
               variant='filled'
               fullWidth
               value={itemName}
-              sx={{boxShadow: 3}}
+              sx={{boxShadow: 4}}
               onChange={(e) => {
                 setItemName(e.target.value)
                 if (e.target.value) {
@@ -217,17 +164,21 @@ export default function Home() {
           >
             Pantry Assistant
           </Typography>
-          <Box display="flex" alignItems="center" ml={2}>
-            <InputBase
-              placeholder="Search Bar"
+          <Box bgcolor="#FFE5B4" sx={{display: 'flex', alignItems: 'flex-end', boxShadow: 4}}>
+            <TextField
+              variant='filled'
+              label="Search Bar"
               value={searchQuery}
-              inputProps={{ 'aria-label': 'search' }}
+              id="input-with-icon-textfield"
               onChange={(e) => setSearchQuery(e.target.value)}
-              sx={{ ml: 1, flex: 1 }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
             />
-            <IconButton type="submit" aria-label="search">
-              <Search style={{ color: 'white' }} />
-            </IconButton>
           </Box>
         </Toolbar>
       </AppBar>
@@ -265,7 +216,7 @@ export default function Home() {
           bgcolor='#b0b0b0'
           boxShadow={10}
         >
-          {inventory.map(({name, quantity}) => (
+          {filterInventory.map(({name, quantity}) => (
             <Box
               key={name}
               width="100%"
@@ -275,6 +226,7 @@ export default function Home() {
               justifyContent="space-between"
               bgcolor='#F5F5DC'
               padding={5}
+              boxShadow={4}
               >
               <Typography variant='h4' color='#333' textAlign='center'>
                 {name.charAt(0).toUpperCase() + name.slice(1)}

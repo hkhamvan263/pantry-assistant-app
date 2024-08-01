@@ -33,7 +33,6 @@ export default function Home() {
       })
     })
     setInventory(inventoryList)
-    setSearchQuery(inventoryList)
   }
 
   const addItem = async (item) => {

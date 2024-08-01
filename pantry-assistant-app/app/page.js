@@ -147,6 +147,7 @@ export default function Home() {
                 setItemName('')
                 handleClose()
               }}
+              color="success"
             >
               Add
             </Button>
@@ -240,6 +241,7 @@ export default function Home() {
                   onClick={() => {
                     addItem(name)
                   }}
+                  color="success"
                 >
                   Add
                 </Button>
@@ -248,6 +250,7 @@ export default function Home() {
                   onClick={() => {
                     removeItem(name)
                   }}
+                  color="error"
                 >
                   Remove
                 </Button>

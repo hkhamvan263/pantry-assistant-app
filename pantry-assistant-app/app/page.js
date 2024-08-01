@@ -29,6 +29,8 @@ export default function Home() {
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
   const [error, setError] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [items, setItems] = useState([])
   
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -121,6 +123,25 @@ export default function Home() {
     }
   }))
 
+  useEffect(() => {
+    const fetchItems = async () => {
+      const itemsCollection = query(collection(firestore, 'items'))
+      const itemsSnapshot = await getDocs(itemsCollection)
+      const itemsList = itemsSnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+      setItems(itemsList)
+    }
+
+    fetchItems()
+  }, [])
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value)
+  }
+
+  const filteredItems = items.filter(item =>
+    item.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   return (
     <Box width ="100vw"
       height="100vh"
@@ -199,13 +220,16 @@ export default function Home() {
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search Bar"
-              inputProps={{'aria-label': 'search'}}
+              value={searchQuery}
+              onChange={handleSearchChange}
+              sx={{ ml: 1, flex: 1 }}
             />
           </SearchField>
         </Toolbar>
       </AppBar>
       <Typography color='#333'>
-        Hello, this is the Pantry Assistant. I'm here to add food, beverages, and condiments to the pantry.
+        Hello, this is the Pantry Assistant. I'm here to add food, beverages, spices,
+         sauces, and condiments to the pantry.
       </Typography>
       <Button
         variant="contained"

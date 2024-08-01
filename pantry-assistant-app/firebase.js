@@ -15,7 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const firestore = getFirestore(app)
-export {firestore}
+export {app, firestore}
 
 require("dotenv").config
 console.log(process.env.apiKey)

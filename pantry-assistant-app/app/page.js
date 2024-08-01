@@ -1,6 +1,6 @@
 'use client'
-import {Box, Modal, Stack, TextField, Typography, Button, InputAdornment} from '@mui/material'
-import {SearchIcon} from '@mui/icons-material'
+import {Box, Modal, Stack, TextField, Typography, InputBase, Toolbar, Button, AppBar, styled, alpha} from '@mui/material'
+import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
 import {
@@ -17,6 +17,7 @@ export default function Home() {
   const [inventory, setInventory] = useState([])
   const [open, setOpen] = useState(false)
   const [itemName, setItemName] = useState('')
+  const[searchQuery, setSearchQuery] = useState('')
   
   const updateInventory = async () => {
     const snapshot = query(collection(firestore, 'inventory'))
@@ -29,6 +30,7 @@ export default function Home() {
       })
     })
     setInventory(inventoryList)
+    setSearchQuery(inventoryList)
   }
 
   const addItem = async (item) => {
@@ -61,12 +63,60 @@ export default function Home() {
     await updateInventory()
   }
 
+  const filterSearch = async () => {
+    const filteredSearch = inventory.filter(item => 
+      item.name.toLowerCase().includes(searchQuery)
+    )
+    setSearchQuery(filteredSearch)
+  }
+
   useEffect(() => {
     updateInventory()
   }, [])
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+
+  const SearchField = styled('div')(({theme}) => ({
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha(theme.palette.common.black, 0.15),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.common.black, 0.25),
+    },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
+    },
+  }))
+  
+  const SearchIconWrapper = styled('div')(({theme}) => ({
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }))
+  
+  const StyledInputBase = styled(InputBase)(({theme}) => ({
+    color: 'inherit',
+    width: '100%',
+    '& .MuiInputBase-input': {
+      padding: theme.spacing(1, 1, 1, 0),
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create('width'),
+      [theme.breakpoints.up('sm')]: {
+        width: '12ch',
+        '&:focus': {
+          width: '20ch',
+        },
+      },
+    },
+  }))
 
   return (
     <Box width ="100vw"
@@ -92,22 +142,22 @@ export default function Home() {
           flexDirection="column"
           gap={3}
           sx={{
-            transform: 'translate(-50%, -50%)',
+            transform: 'translate(-50%, -50%)'
           }}
         >
           <Typography variant="h6"> Add item</Typography>
           <Stack width="100%" direction="row" spacing={2}>
             <TextField
-              variant='outlined'
+              variant='filled'
               fullWidth
               value={itemName}
-              onChange={(e)=>{
+              onChange={(e) => {
                 setItemName(e.target.value)
               }}
             />
             <Button
               variant="outlined"
-              onClick={()=>{
+              onClick={() => {
                 addItem(itemName)
                 setItemName('')
                 handleClose()
@@ -118,27 +168,30 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Stack direction="row" spacing={20}>
-        <Typography variant='h3' color='#333' textAlign='left'>Pantry Assistant</Typography>
-        <Stack direction="row" spacing={2}>
-          <TextField
-            id="input-with-icon-textfield"
-            label="Search Bar"
-            type="search"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-            variant="filled"
-          />
-          <Button variant="contained">Enter</Button>
-        </Stack>
-      </Stack>
+      <AppBar sx={{bgcolor: "#FAC898"}}>
+        <Toolbar>
+          <Kitchen />
+          <Typography
+            variant='h4'
+            component="div"
+            color='#333'
+            sx={{fontWeight: "bold", flexGrow: 1}}
+          >
+            Pantry Assistant
+          </Typography>
+          <SearchField>
+            <SearchIconWrapper>
+              <Search />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search Bar"
+              inputProps={{'aria-label': 'search'}}
+            />
+          </SearchField>
+        </Toolbar>
+      </AppBar>
       <Typography color='#333'>
-        Hello, this is the Pantry Assistant. Click the button below to add a new item.
+        Hello, this is the Pantry Assistant. I'm here to add food, beverages, and condiments to the pantry.
       </Typography>
       <Button
         variant="contained"
@@ -156,6 +209,7 @@ export default function Home() {
           alignItems="center"
           justifyContent="center"
           display="flex"
+          boxShadow={10}
         >
           <Typography variant="h2" color="#333">
             Pantry Items
@@ -167,22 +221,23 @@ export default function Home() {
           spacing={2}
           overflow="auto"
           bgcolor='#b0b0b0'
+          boxShadow={10}
         >
           {inventory.map(({name, quantity}) => (
             <Box
               key={name}
               width="100%"
-              minHeight="125px"
+              minHeight="150px"
               display='flex'
               alignItems="center"
               justifyContent="space-between"
-              bgcolor='#f0f0f0'
+              bgcolor='#F5F5DC'
               padding={5}
-            >
-              <Typography variant='h3' color='#333' textAlign='center'>
+              >
+              <Typography variant='h4' color='#333' textAlign='center'>
                 {name.charAt(0).toUpperCase() + name.slice(1)}
               </Typography>
-              <Typography variant='h3' color='#333' textAlign='center'>
+              <Typography variant='h4' color='#333' textAlign='center'>
                 {quantity}
               </Typography>
               <Stack direction="row" spacing={2}>

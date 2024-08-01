@@ -89,7 +89,7 @@ export default function Home() {
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: 'auto',
-    },
+    }
   }))
   
   const SearchIconWrapper = styled('div')(({theme}) => ({
@@ -99,7 +99,7 @@ export default function Home() {
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   }))
   
   const StyledInputBase = styled(InputBase)(({theme}) => ({
@@ -115,7 +115,7 @@ export default function Home() {
           width: '20ch',
         },
       },
-    },
+    }
   }))
 
   return (

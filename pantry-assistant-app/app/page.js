@@ -195,7 +195,11 @@ export default function Home() {
       >
         Add New Item
       </Button>
-      <Box border='1px solid #333'>
+      <Box
+        border='3px solid #333'
+        borderRadius="10px"
+        bgcolor="#333"
+      >
         <Box
           width="800px"
           height="100px"
@@ -204,6 +208,8 @@ export default function Home() {
           justifyContent="center"
           display="flex"
           boxShadow={10}
+          borderRadius="6px"
+          border='3px solid #333'
         >
           <Typography variant="h2" color="#333">
             Pantry Items
@@ -216,6 +222,8 @@ export default function Home() {
           overflow="auto"
           bgcolor='#b0b0b0'
           boxShadow={10}
+          borderRadius="6px"
+          border='3px solid #333'
         >
           {filterInventory.map(({name, quantity}) => (
             <Box
@@ -227,7 +235,9 @@ export default function Home() {
               justifyContent="space-between"
               bgcolor='#F5F5DC'
               padding={5}
-              boxShadow={4}
+              boxShadow={1}
+              borderRadius="6px"
+              border='3px solid #b0b0b0'
               >
               <Typography variant='h4' color='#333' textAlign='center'>
                 {name.charAt(0).toUpperCase() + name.slice(1)}

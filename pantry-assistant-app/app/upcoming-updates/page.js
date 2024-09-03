@@ -14,6 +14,17 @@ import {
 import {Search, Kitchen, Menu} from '@mui/icons-material'
 
 export default function UpcomingUpdates() {
+  const [searchQuery, setSearchQuery] = useState('')
+  useEffect(() => {
+    const searching = searchQuery.toLowerCase()
+    if (searchQuery !== '') {
+      const filter = inventory.filter((item) =>
+        item.name.toLowerCase().startsWith(searching)
+      )
+      setFilterInventory(filter)
+    }
+    else setFilterInventory(inventory)
+  }, [searchQuery, inventory])
   return (
     <Box width ="100vw"
       height="100vh"

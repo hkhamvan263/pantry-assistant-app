@@ -9,6 +9,7 @@ import {
   Toolbar,
   Button,
   AppBar,
+  IconButton,
 } from '@mui/material'
 import {Search, Kitchen} from '@mui/icons-material'
 import {firestore} from '@/firebase'
@@ -22,6 +23,7 @@ import {
   setDoc,
   getDoc
 } from 'firebase/firestore'
+import {Menu} from "@mui/icons-material"
 
 export default function Home() {
   const [inventory, setInventory] = useState([])
@@ -100,7 +102,7 @@ export default function Home() {
       flexDirection="column"
       alignItems="center"
       gap={2}
-      bgcolor="#FDFD96"
+      bgcolor="#e7f5fe"
       overflow="auto"
     >
       <Modal open={open} onClose={handleClose}>
@@ -156,7 +158,10 @@ export default function Home() {
       </Modal>
       <AppBar position="absolute" sx={{bgcolor: "#FAC898"}}>
         <Toolbar>
-          <Kitchen />
+          <Menu />
+          <IconButton color="inherit" href="/">
+            <Kitchen />
+          </IconButton>
           <Typography
             variant='h4'
             component="div"

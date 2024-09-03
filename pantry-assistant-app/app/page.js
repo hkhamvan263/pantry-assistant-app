@@ -11,7 +11,7 @@ import {
   AppBar,
   IconButton,
 } from '@mui/material'
-import {Search, Kitchen} from '@mui/icons-material'
+import {Search, Kitchen, Menu} from '@mui/icons-material'
 import {firestore} from '@/firebase'
 import {useState, useEffect} from 'react'
 import {
@@ -23,7 +23,6 @@ import {
   setDoc,
   getDoc
 } from 'firebase/firestore'
-import {Menu} from "@mui/icons-material"
 
 export default function Home() {
   const [inventory, setInventory] = useState([])
@@ -190,7 +189,7 @@ export default function Home() {
       </AppBar>
       <Typography color='#333'>
         Hello, this is the Pantry Assistant. I'm here to add food, beverages, spices/flavorings,
-         sauces, and condiments to the pantry.
+        sauces, and condiments to the pantry.
       </Typography>
       <Button
         variant="contained"

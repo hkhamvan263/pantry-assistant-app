@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app"
 import {getFirestore} from 'firebase/firestore'
+import { getAnalytics } from "firebase/analytics"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -9,13 +10,15 @@ const firebaseConfig = {
   projectId: "pantry-assistant-app",
   storageBucket: "pantry-assistant-app.appspot.com",
   messagingSenderId: "950423514077",
-  appId: "1:950423514077:web:8e112629e1564f6a226434"
+  appId: "1:950423514077:web:8e112629e1564f6a226434",
+  measurementId: "G-BVP30NTBLR"
 }
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const firestore = getFirestore(app)
-export {firestore}
+const analytics = getAnalytics(app)
+export {firestore, analytics}
 
 require("dotenv").config
 console.log(process.env.apiKey)

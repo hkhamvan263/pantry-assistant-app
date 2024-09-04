@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import {initializeApp} from "firebase/app"
 import {getFirestore} from 'firebase/firestore'
-import { getAnalytics } from "firebase/analytics"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -17,8 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 const firestore = getFirestore(app)
-const analytics = getAnalytics(app)
-export {firestore, analytics}
+export {firestore}
 
 require("dotenv").config
 console.log(process.env.apiKey)
